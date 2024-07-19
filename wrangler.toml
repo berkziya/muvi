@@ -1,4 +1,4 @@
-name = "remix-cloudflare-workers-template"
+name = "muvi"
 
 main = "./server.js"
 workers_dev = true
@@ -9,4 +9,9 @@ compatibility_date = "2023-04-20"
 bucket = "./build/client"
 
 [build]
-command = "npm run build"
+command = "pnpm run build"
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "muvi"
+database_id = "8c536752-ab98-4cfc-bfa3-cc819a5520b1"
