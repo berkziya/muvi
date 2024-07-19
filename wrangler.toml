@@ -2,8 +2,7 @@ name = "muvi"
 
 main = "./server.js"
 workers_dev = true
-# https://developers.cloudflare.com/workers/platform/compatibility-dates
-compatibility_date = "2023-04-20"
+compatibility_date = "2024-07-19"
 
 [site]
 bucket = "./build/client"
@@ -12,6 +11,6 @@ bucket = "./build/client"
 command = "pnpm run build"
 
 [[d1_databases]]
-binding = "DB" # i.e. available in your Worker on env.DB
+binding = "DB"
 database_name = "muvi"
 database_id = "8c536752-ab98-4cfc-bfa3-cc819a5520b1"
