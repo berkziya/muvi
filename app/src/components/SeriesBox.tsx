@@ -1,4 +1,5 @@
 import { Link } from '@remix-run/react';
+import { ImageWithFallback } from './ImageWithFallback';
 
 // @ts-expect-error series is not typed
 export const SeriesBox = (series) => {
@@ -7,7 +8,7 @@ export const SeriesBox = (series) => {
       to={`/series/${series.id}`}
       className='p-4 flex items-start space-x-4 max-h-32 max-w-md'
     >
-      <img
+      <ImageWithFallback
         src={`https://image.tmdb.org/t/p/w92${series.poster_path}`}
         alt={series.name}
         className='max-h-24 rounded-lg'

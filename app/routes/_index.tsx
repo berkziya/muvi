@@ -1,21 +1,28 @@
-import { json, LoaderFunction, MetaFunction } from '@remix-run/cloudflare';
+import { LoaderFunction, MetaFunction } from '@remix-run/cloudflare';
+import PopularMovies, { usePopularMovies } from './popular.movies';
+import PopularSeries, { usePopularSeries } from './popular.series';
 import { useLoaderData } from '@remix-run/react';
-import { MovieBox } from '~/src/components/MovieBox';
-import { SeriesBox } from '~/src/components/SeriesBox';
+
+const CACHE_DURATION = 60 * 60 * 1000; // 60 minutes
+let cache = {
+  movies: { data: null, timestamp: 0 },
+  series: { data: null, timestamp: 0 },
+};
 
 export const loader: LoaderFunction = async ({ context }) => {
-  const { env } = context.cloudflare;
-  const headers = {
-    Authorization: `Bearer ${env.TMDB_Token}`,
-    accept: 'application/json',
-  };
-  const [moviesResponse, seriesResponse] = await Promise.all([
-    fetch('https://api.themoviedb.org/3/movie/popular', { headers }),
-    fetch('https://api.themoviedb.org/3/tv/popular', { headers }),
-  ]);
-  const movies = await moviesResponse.json();
-  const series = await seriesResponse.json();
-  return json({ movies, series });
+  const now = Date.now();
+
+  if (!cache.movies.data || now - cache.movies.timestamp > CACHE_DURATION) {
+    cache.movies.data = { results: [], ...(await usePopularMovies(context)) };
+    cache.movies.timestamp = Date.now();
+  }
+
+  if (!cache.series.data || now - cache.series.timestamp > CACHE_DURATION) {
+    cache.series.data = { results: [], ...(await usePopularSeries(context)) };
+    cache.series.timestamp = Date.now();
+  }
+
+  return { movies: cache.movies.data, series: cache.series.data };
 };
 
 export const meta: MetaFunction = () => {
@@ -24,21 +31,10 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const data: any = useLoaderData();
-
   return (
     <div className='flex flex-row'>
-      <div className='p-4 flex flex-col'>
-        <h1 className='text-2xl font-semibold'>Popular Movies</h1>
-        {data.movies.results.map((movie: any) => (
-          <MovieBox key={movie.id} {...movie} />
-        ))}
-      </div>
-      <div className='p-4 flex flex-col'>
-        <h1 className='text-2xl font-semibold'>Popular Series</h1>
-        {data.series.results.map((movie: any) => (
-          <SeriesBox key={movie.id} {...movie} />
-        ))}
-      </div>
+      <PopularMovies {...data.movies} />
+      <PopularSeries {...data.series} />
     </div>
   );
 }
