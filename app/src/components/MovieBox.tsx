@@ -1,11 +1,10 @@
 import { Link } from '@remix-run/react';
 
-// @ts-expect-error data is not typed
+// @ts-expect-error movie is not typed
 export const MovieBox = (movie) => {
   return (
     <Link
-      to={`/movies/${movie.id}`}
-      key={movie.id}
+      to={`/movie/${movie.id}`}
       className='p-4 flex items-start space-x-4 h-sm max-w-md'
     >
       <img

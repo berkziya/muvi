@@ -1,11 +1,10 @@
 import { Link } from '@remix-run/react';
 
-// @ts-expect-error data is not typed
+// @ts-expect-error series is not typed
 export const SeriesBox = (series) => {
   return (
     <Link
       to={`/series/${series.id}`}
-      key={series.id}
       className='p-4 flex items-start space-x-4 max-h-32 max-w-md'
     >
       <img
