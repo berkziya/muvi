@@ -1,5 +1,4 @@
 import { Link } from '@remix-run/react';
-import { ImageWithFallback } from './ImageWithFallback';
 
 // @ts-expect-error movie is not typed
 export const MovieBox = (movie) => {
@@ -8,7 +7,7 @@ export const MovieBox = (movie) => {
       to={`/movie/${movie.id}`}
       className='p-4 flex items-start space-x-4 h-sm max-w-md'
     >
-      <ImageWithFallback
+      <img
         src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
         alt={movie.name}
         className='max-h-24 rounded-lg'

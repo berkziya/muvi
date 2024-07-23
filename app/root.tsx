@@ -7,7 +7,7 @@ import {
 } from '@remix-run/react';
 import './tailwind.css';
 
-export function Layout() {
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <head>
@@ -17,7 +17,7 @@ export function Layout() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>

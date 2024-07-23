@@ -13,16 +13,16 @@ export const loader: LoaderFunction = async ({ params, context }) => {
       },
     }
   );
-  const movies = await response.json();
-  return json(movies);
+  const data = await response.json();
+  return json(data);
 };
 
 export default function MoviePage() {
-  const movie: any = useLoaderData();
+  const data: any = useLoaderData();
   return (
     <div>
       <div className='p4'>
-        <pre>{JSON.stringify(movie, null, 2)}</pre>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
       </div>
     </div>
   );
