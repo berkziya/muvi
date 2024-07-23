@@ -1,6 +1,6 @@
-import { SeriesBox } from '~/src/components/SeriesBox';
+import { SeriesBox } from '~/routes/_landing._index/SeriesBox';
 
-export async function usePopularSeries(context: any): Promise<any> {
+export async function getPopularSeries(context: any): Promise<any> {
   const { env } = context.cloudflare;
   const headers = {
     Authorization: `Bearer ${env.TMDB_Token}`,
@@ -12,11 +12,13 @@ export async function usePopularSeries(context: any): Promise<any> {
   return await response.json();
 }
 
-export default function PopularSeries(series: any) {
+export default function PopularSeries(series: any = null) {
+  const data = series;
+  if (!data) return;
   return (
     <div className='p-4 flex flex-col'>
-      {series.results.map((series: any) => (
-        <SeriesBox key={series.id} {...series} />
+      {data.results.map((datum: any) => (
+        <SeriesBox key={datum.id} {...datum} />
       ))}
     </div>
   );

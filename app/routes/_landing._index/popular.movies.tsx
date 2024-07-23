@@ -1,6 +1,6 @@
-import { MovieBox } from '~/src/components/MovieBox';
+import { MovieBox } from '~/routes/_landing._index/MovieBox';
 
-export async function usePopularMovies(context: any): Promise<any> {
+export async function getPopularMovies(context: any): Promise<any> {
   const { env } = context.cloudflare;
   const headers = {
     Authorization: `Bearer ${env.TMDB_Token}`,
@@ -12,11 +12,13 @@ export async function usePopularMovies(context: any): Promise<any> {
   return await response.json();
 }
 
-export default function PopularMovies(movies: any) {
+export default function PopularMovies(movies: any = null) {
+  const data = movies;
+  if (!data) return;
   return (
     <div className='p-4 flex flex-col'>
-      {movies.results.map((movie: any) => (
-        <MovieBox key={movie.id} {...movie} />
+      {data.results.map((datum: any) => (
+        <MovieBox key={datum.id} {...datum} />
       ))}
     </div>
   );
