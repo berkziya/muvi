@@ -1,13 +1,12 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from '@remix-run/react';
-import './tailwind.css';
+import { Links, Meta, Outlet, Scripts } from '@remix-run/react';
+import stylesheet from './tailwind.css?url';
+import { LinksFunction } from '@remix-run/cloudflare';
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: stylesheet },
+];
+
+export default function App() {
   return (
     <html lang='en'>
       <head>
@@ -17,14 +16,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
-        <ScrollRestoration />
+        <Outlet />
         <Scripts />
       </body>
     </html>
   );
-}
-
-export default function App() {
-  return <Outlet />;
 }

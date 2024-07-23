@@ -13,7 +13,6 @@ export const loader: LoaderFunction = async ({ context }) => {
   const now = Date.now();
 
   if (!cache.movies.data || now - cache.movies.timestamp > CACHE_DURATION) {
-    console.log('Fetching popular movies');
     cache.movies.data = { results: [], ...(await getPopularMovies(context)) };
     cache.movies.timestamp = Date.now();
   }
