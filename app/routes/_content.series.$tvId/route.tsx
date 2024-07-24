@@ -1,5 +1,5 @@
-import { json, LoaderFunctionArgs } from '@remix-run/cloudflare';
-import { useLoaderData } from '@remix-run/react';
+import { LoaderFunctionArgs } from '@remix-run/cloudflare';
+import { Await, defer, useLoaderData } from '@remix-run/react';
 
 export const loader = async ({ params, context }: LoaderFunctionArgs) => {
   const { env } = context.cloudflare;
@@ -8,19 +8,30 @@ export const loader = async ({ params, context }: LoaderFunctionArgs) => {
     Authorization: `Bearer ${env.TMDB_Token}`,
     accept: 'application/json',
   };
-  const response = await fetch(`https://api.themoviedb.org/3/tv/${tvId}`, {
+  const responsePromise = fetch(`https://api.themoviedb.org/3/tv/${tvId}`, {
     headers,
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      return res;
+    });
+  return defer({
+    response: responsePromise,
   });
-  const series = await response.json();
-  return json(series);
 };
 
 export default function SeriesPage() {
-  const data = useLoaderData();
+  const { response } = useLoaderData<typeof loader>();
   return (
     <div>
       <div className='p4'>
-        <pre>{JSON.stringify(data, null, 2)}</pre>
+        <Await resolve={response}>
+          {(resolvedResponse) => (
+            <pre>{JSON.stringify(resolvedResponse, null, 2)}</pre>
+          )}
+        </Await>
       </div>
     </div>
   );

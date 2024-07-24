@@ -10,13 +10,13 @@ export async function getPopularMedia(
     Authorization: `Bearer ${env.TMDB_Token}`,
     accept: 'application/json',
   };
-  const response = await fetch(`https://api.themoviedb.org/3/${type}/popular`, {
+  const promise = fetch(`https://api.themoviedb.org/3/${type}/popular`, {
     headers,
-  });
-  return await response.json();
+  }).then((res) => res.json());
+  return promise;
 }
 
-export default function PopularMedia({
+export default function PopularMediaList({
   mediaType,
   data,
 }: {
