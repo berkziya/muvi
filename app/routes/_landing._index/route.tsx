@@ -1,28 +1,27 @@
-import { LoaderFunction, MetaFunction } from '@remix-run/cloudflare';
-import PopularMovies, { getPopularMovies } from './popular.movies';
-import PopularSeries, { getPopularSeries } from './popular.series';
+import { json, LoaderFunctionArgs, MetaFunction } from '@remix-run/cloudflare';
 import { useLoaderData } from '@remix-run/react';
+import PopularMedia, { getPopularMedia } from './PopularMedia';
 
 const CACHE_DURATION = 60 * 60 * 1000; // 60 minutes
-const cache = {  // why const? idk
+const cache = {
   movies: { data: null, timestamp: 0 },
   series: { data: null, timestamp: 0 },
 };
 
-export const loader: LoaderFunction = async ({ context }) => {
+export const loader = async ({ context }: LoaderFunctionArgs) => {
   const now = Date.now();
 
   if (!cache.movies.data || now - cache.movies.timestamp > CACHE_DURATION) {
-    cache.movies.data = { results: [], ...(await getPopularMovies(context)) };
-    cache.movies.timestamp = Date.now();
+    cache.movies.data = await getPopularMedia(context, 'movie');
+    cache.movies.timestamp = now;
   }
 
   if (!cache.series.data || now - cache.series.timestamp > CACHE_DURATION) {
-    cache.series.data = { results: [], ...(await getPopularSeries(context)) };
-    cache.series.timestamp = Date.now();
+    cache.series.data = await getPopularMedia(context, 'tv');
+    cache.series.timestamp = now;
   }
 
-  return { movies: cache.movies.data, series: cache.series.data };
+  return json({ movies: cache.movies.data, series: cache.series.data });
 };
 
 export const meta: MetaFunction = () => {
@@ -30,11 +29,11 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const data: any = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   return (
     <div className='flex flex-row'>
-      <PopularMovies {...data.movies} />
-      <PopularSeries {...data.series} />
+      <PopularMedia mediaType='movie' data={data.movies} />
+      <PopularMedia mediaType='tv' data={data.series} />
     </div>
   );
 }

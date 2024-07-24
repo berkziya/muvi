@@ -1,7 +1,7 @@
-import { json, LoaderFunction } from '@remix-run/cloudflare';
+import { json, LoaderFunctionArgs } from '@remix-run/cloudflare';
 import { useLoaderData } from '@remix-run/react';
 
-export const loader: LoaderFunction = async ({ params, context }) => {
+export const loader = async ({ params, context }: LoaderFunctionArgs) => {
   const { env } = context.cloudflare;
   const tvId = params.tvId;
   const headers = {
@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async ({ params, context }) => {
 };
 
 export default function SeriesPage() {
-  const data: any = useLoaderData();
+  const data = useLoaderData();
   return (
     <div>
       <div className='p4'>
