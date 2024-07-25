@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const { movies, series } = useLoaderData<typeof loader>();
   return (
-    <div className='flex flex-row'>
+    <div className='flex flex-col'>
       <Await resolve={movies}>
         {(data) => <PopularMediaList mediaType='movie' data={data} />}
       </Await>
