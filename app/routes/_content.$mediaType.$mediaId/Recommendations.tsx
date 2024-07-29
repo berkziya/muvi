@@ -13,7 +13,7 @@ export const Recommendations = ({ mediaType, ...response }: any) => {
         {recommendations.map((recommendation: any) => (
           <div key={recommendation.id}>
             <Link to={`../${mediaType}/${recommendation.id}`}>
-              <div className='aspect-[500/281] min-h-32'>
+              <div className='aspect-[500/281] min-h-28'>
                 {recommendation.backdrop_path ? (
                   <img
                     src={`https://image.tmdb.org/t/p/w500${recommendation.backdrop_path}`}

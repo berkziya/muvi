@@ -3,7 +3,7 @@ export const Credits = (response: any) => {
   return (
     <div className='p-3'>
       <h2 className='text-xl font-semibold text-accent-300 my-5'>Credits</h2>
-      <div className='flex flex-row overflow-x-scroll md:grid md:grid-cols-4 lg:grid-cols-6 gap-5'>
+      <div className='flex flex-row overflow-x-scroll md:grid md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-5'>
         {cast.map((actor: any) => (
           <div key={actor.id} className=''>
             <div className='h-36 aspect-[2/3] min-w-max'>
