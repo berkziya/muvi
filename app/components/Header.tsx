@@ -2,9 +2,9 @@ import { Link } from '@remix-run/react';
 
 const Header = () => {
   return (
-    <header className='p-6'>
+    <header className='p-2 py-3 md:p-6'>
       <nav className='flex justify-between items-center'>
-        <Link to='/' className='text-3xl mx-10 font-extrabold text-accent-400'>
+        <Link to='/' className='text-3xl font-extrabold text-accent-400'>
           Muvi
         </Link>
         <div>

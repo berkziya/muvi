@@ -55,7 +55,7 @@ export default function MediaPage() {
     return (
       <button
         onClick={() => setSelectedSection(section)}
-        className='bg-background-800 p-2 px-4 rounded-md'
+        className='bg-background-800 p-1 px-4 rounded-md overflow-hidden text-accent-300 hover:bg-accent-300 hover:text-background-800'
       >
         {text}
       </button>
@@ -65,7 +65,7 @@ export default function MediaPage() {
   return (
     <div className='flex flex-col'>
       <div>{MainDetails(response)}</div>
-      <div className='flex flex-row my-10 mx-auto space-x-5'>
+      <div className='grid grid-cols-2 gap-3 md:mx-20 lg:grid-cols-4'>
         {sectionButton('Details', 'details')}
         {sectionButton('Genres', 'genres')}
         {sectionButton('Credits', 'credits')}

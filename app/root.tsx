@@ -33,9 +33,7 @@ export default function App() {
       <body className='flex flex-col min-h-screen bg-background-950 text-text-100'>
         <div className='flex-grow mx-auto w-10/12 md:w-8/12'>
           <Header />
-          <div className='p-4'>
             <Outlet />
-          </div>
         </div>
         <Footer />
         <Scripts />

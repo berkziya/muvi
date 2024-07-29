@@ -25,7 +25,7 @@ export default function PopularMediaList({
 }) {
   if (!data) return null;
   return (
-    <div className='p-4 flex flex-col'>
+    <div className=' flex flex-col'>
       {data.results.map((datum: any) => (
         <MediaBox key={datum.id} {...datum} />
       ))}

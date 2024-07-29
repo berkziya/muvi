@@ -1,16 +1,19 @@
 export function MainDetails(response: any) {
   return (
-    <div className='flex flex-row'>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${response.poster_path}`}
-        alt={response.title ?? response.name}
-        className='w-1/4 max-w-52'
-      />
-      <div className='p-4'>
-        <h1 className='text-2xl font-semibold text-accent-300'>
+    <div className='flex flex-row items-start mb-6'>
+      <div className='h-48 md:h-60 lg:h-72 aspect-[2/3]'>
+        <img
+          src={`https://image.tmdb.org/t/p/w500${response.poster_path}`}
+          alt={response.title ?? response.name}
+        />
+      </div>
+      <div className='p-2'>
+        <h1 className='pt-7 text-l font-semibold text-accent-300'>
           {response.title ?? response.name}
         </h1>
-        <p>{response.overview}</p>
+        <p className='text-md line-clamp-6 hover:line-clamp-none'>
+          {response.overview}
+        </p>
       </div>
     </div>
   );
