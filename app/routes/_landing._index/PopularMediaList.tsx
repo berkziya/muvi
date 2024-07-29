@@ -16,13 +16,7 @@ export async function getPopularMedia(
   return promise;
 }
 
-export default function PopularMediaList({
-  mediaType,
-  data,
-}: {
-  mediaType: 'movie' | 'tv';
-  data: any;
-}) {
+export function PopularMediaList({ data }: { data: any }) {
   if (!data) return null;
   return (
     <div className=' flex flex-col'>

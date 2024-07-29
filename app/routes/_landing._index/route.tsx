@@ -1,12 +1,12 @@
-import { LoaderFunctionArgs, MetaFunction } from '@remix-run/cloudflare';
-import { Await, defer, useLoaderData } from '@remix-run/react';
-import PopularMediaList, { getPopularMedia } from './PopularMediaList';
+import { json, LoaderFunctionArgs, MetaFunction } from '@remix-run/cloudflare';
+import { useLoaderData } from '@remix-run/react';
+import { PopularMediaList, getPopularMedia } from './PopularMediaList';
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const moviesPromise = getPopularMedia(context, 'movie');
-  const seriesPromise = getPopularMedia(context, 'tv');
+  const movies = await getPopularMedia(context, 'movie');
+  const series = await getPopularMedia(context, 'tv');
 
-  return defer({ movies: moviesPromise, series: seriesPromise });
+  return json({ movies, series });
 };
 
 export const meta: MetaFunction = () => {
@@ -16,13 +16,19 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const { movies, series } = useLoaderData<typeof loader>();
   return (
-    <div className='flex flex-col'>
-      <Await resolve={movies}>
-        {(data) => <PopularMediaList mediaType='movie' data={data} />}
-      </Await>
-      <Await resolve={series}>
-        {(data) => <PopularMediaList mediaType='tv' data={data} />}
-      </Await>
+    <div className='grid grid-cols-1 md:grid-cols-2'>
+      <div>
+        <h1 className='text-2xl font-semibold text-accent-300'>
+          Popular Movies
+        </h1>
+        <PopularMediaList data={movies} />
+      </div>
+      <div>
+        <h1 className='text-2xl font-semibold text-accent-300'>
+          Popular Series
+        </h1>
+        <PopularMediaList data={series} />
+      </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
           <Link to='/' className='hover:underline'>
             Privacy Policy
           </Link>
-          <Link to='/' className='hover:underline'>
+          <Link to='/contact' className='hover:underline'>
             Contact
           </Link>
         </div>

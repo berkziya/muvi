@@ -9,7 +9,7 @@ export const Recommendations = ({ mediaType, ...response }: any) => {
       <h2 className='text-xl font-semibold text-accent-300 my-5'>
         Recommendations
       </h2>
-      <div className='flex flex-row overflow-x-scroll md:grid md:grid-cols-4 gap-5'>
+      <div className='flex flex-row overflow-x-scroll md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5'>
         {recommendations.map((recommendation: any) => (
           <div key={recommendation.id}>
             <Link to={`../${mediaType}/${recommendation.id}`}>

@@ -12,7 +12,7 @@ export const MediaBox = (media: Media) => {
   return (
     <Link
       to={`/${media.title ? 'movie' : 'series'}/${media.id}`}
-      className='p-3 flex items-start space-x-4 h-sm max-w-md hover:bg-opacity-80'
+      className='p-3 flex items-start space-x-4 hover:bg-opacity-80'
     >
       <img
         src={`https://image.tmdb.org/t/p/w92${media.poster_path}`}
