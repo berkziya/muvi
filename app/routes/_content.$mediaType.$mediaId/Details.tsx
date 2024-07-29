@@ -10,7 +10,7 @@ export default function Details(response: any) {
         <p>Status: {response.status}</p>
         <br />
         <br />
-        // This is a quick way to see the response object
+        This is a quick way to see the response object
         <pre className='overflow-x-hidden whitespace-break-spaces max-w-[100%]'>
           {/* {JSON.stringify(response, null, 2)} */}
         </pre>
