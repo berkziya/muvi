@@ -6,14 +6,14 @@ export const Credits = (response: any) => {
       <div className='flex flex-row overflow-x-scroll md:grid md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-5'>
         {cast.map((actor: any) => (
           <div key={actor.id} className=''>
-            <div className='h-36 aspect-[2/3] min-w-max'>
+            <div className='h-36 aspect-2/3 min-w-max'>
               {actor.profile_path ? (
                 <img
                   src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
                   alt={actor.name}
                 />
               ) : (
-                <div className='h-36 aspect-[2/3] bg-accent-400 min-w-max'></div>
+                <div className='h-36 aspect-2/3 bg-accent-400 min-w-max'></div>
               )}
             </div>
             <h2 className='text-accent-300'>{actor.name}</h2>

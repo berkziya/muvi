@@ -1,7 +1,7 @@
 export function MainDetails(response: any) {
   return (
     <div className='flex flex-row items-start mt-2 mb-6'>
-      <div className='h-48 md:h-60 lg:h-72 aspect-[2/3]'>
+      <div className='h-48 md:h-60 lg:h-72 aspect-2/3'>
         <img
           src={`https://image.tmdb.org/t/p/w500${response.poster_path}`}
           alt={response.title ?? response.name}

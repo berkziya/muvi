@@ -20,7 +20,7 @@ export const MediaBox = (media: Media) => {
         className='max-h-24 rounded-lg'
       />
       <div className='flex flex-col'>
-        <h2 className='text-lg font-semibold text-accent-200 overflow-ellipsis line-clamp-1'>
+        <h2 className='text-lg font-semibold text-accent-200 text-ellipsis line-clamp-1'>
           {media.title || media.name}
         </h2>
         <p className='text-sm line-clamp-3'>{media.overview}</p>
